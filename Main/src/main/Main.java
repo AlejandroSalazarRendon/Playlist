@@ -125,5 +125,47 @@ public class Main {
         library.removeSong(identificador);
     }
     
-    
+    //Menu para Playlist 
+    private static void playlistMenu() {
+        int option;
+
+        do {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("----- Submenú Playlist -----");
+            System.out.println("1. Crear una playlist");
+            System.out.println("2. Eliminar una playlist");
+            System.out.println("3. Mostrar playlists");
+            System.out.println("4. Agregar canciones a una playlist");
+            System.out.println("5. Eliminar canciones de una playlist");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Elige una opción: ");
+            option = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+
+            switch (option) {
+                case 1:
+                    //createAPlaylist();
+                    break;
+                case 2:
+                    //removeAPlaylist();
+                    break;
+                case 3:
+                    //showPlaylist();
+                    break;
+                case 4:
+                   // addSongsToPlaylist();
+                    break;
+                case 5:
+                    //removeSongsFromPlaylist();
+                    break;
+                case 6:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Introduce un número del 1 al 6.");
+                    break;
+            }
+        }while(option!=6);
+    }
 }
