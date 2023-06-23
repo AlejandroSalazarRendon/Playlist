@@ -145,13 +145,13 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    //createAPlaylist();
+                    createAPlaylist();
                     break;
                 case 2:
-                    //removeAPlaylist();
+                    removeAPlaylist();
                     break;
                 case 3:
-                    //showPlaylist();
+                    showPlaylist();
                     break;
                 case 4:
                    // addSongsToPlaylist();
@@ -167,5 +167,28 @@ public class Main {
                     break;
             }
         }while(option!=6);
+    }
+    private static void createAPlaylist() {
+        System.out.print("Ingrese el nombre de la playlist: ");
+        String nombre = scanner.nextLine();
+        playlist = new Playlist(nombre);
+        System.out.println("Playlist creada.");
+    }
+
+    private static void removeAPlaylist() {
+        if (playlist != null) {
+            playlist = null;
+            System.out.println("Playlist eliminada.");
+        } else {
+            System.out.println("No hay ninguna playlist creada.");
+        }
+    }
+
+    private static void showPlaylist() {
+        if (playlist != null) {
+            playlist.showSongs();
+        } else {
+            System.out.println("No hay ninguna playlist creada.");
+        }
     }
 }
