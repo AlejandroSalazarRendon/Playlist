@@ -21,10 +21,10 @@ public class Main {
                     libraryMenu();
                     break;
                 case 2:
-                    //playlistMenu();
+                    playlistMenu();
                     break;
                 case 3:
-                    //filterMenu();
+                    filterMenu();
                     break;
                 case 4:
                     //sortMenu();
@@ -141,7 +141,7 @@ public class Main {
             System.out.println("6. Volver al menú principal");
             System.out.print("Elige una opción: ");
             option = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine(); 
 
             switch (option) {
                 case 1:
@@ -154,10 +154,10 @@ public class Main {
                     showPlaylist();
                     break;
                 case 4:
-                   // addSongsToPlaylist();
+                    addSongsToPlaylist();
                     break;
                 case 5:
-                    //removeSongsFromPlaylist();
+                    removeSongsFromPlaylist();
                     break;
                 case 6:
                     System.out.println("Volviendo al menú principal...");
@@ -168,6 +168,8 @@ public class Main {
             }
         }while(option!=6);
     }
+    
+    //Metodo que crea una playlist
     private static void createAPlaylist() {
         System.out.print("Ingrese el nombre de la playlist: ");
         String nombre = scanner.nextLine();
@@ -175,6 +177,7 @@ public class Main {
         System.out.println("Playlist creada.");
     }
 
+    //Metodo que elimina una playlist
     private static void removeAPlaylist() {
         if (playlist != null) {
             playlist = null;
@@ -184,11 +187,105 @@ public class Main {
         }
     }
 
+    //Metodo que muestra la playlist
     private static void showPlaylist() {
         if (playlist != null) {
             playlist.showSongs();
         } else {
             System.out.println("No hay ninguna playlist creada.");
+        }
+    }
+    
+        // Añadir una canción a la playlist
+        private static void addSongsToPlaylist() {
+        if (playlist != null) {
+            System.out.print("Ingrese el identificador de la canción a agregar a la playlist: ");
+            int identificador = scanner.nextInt();
+            scanner.nextLine();
+
+            for (Song cancion : library.getSongs()) {
+                if (cancion.getIdentifier() == identificador) {
+                    playlist.addSong(cancion);
+                    return;
+                }
+            }
+
+            System.out.println("No se encontró ninguna canción con el identificador proporcionado en la biblioteca.");
+        } else {
+            System.out.println("No hay ninguna playlist creada.");
+        }
+    }
+
+        //Eliminar una cancion de la playlist
+    private static void removeSongsFromPlaylist() {
+        if (playlist != null) {
+            System.out.print("Ingrese el identificador de la canción a eliminar de la playlist: ");
+            int identificador = scanner.nextInt();
+            scanner.nextLine(); 
+            playlist.removeSong(identificador);
+        } else {
+            System.out.println("No hay ninguna playlist creada.");
+        }
+    }
+
+    //Menu para filtrar por genero o por año
+    private static void filterMenu() {
+        int option;
+
+        do {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("----- Submenú Filtrar Canciones -----");
+            System.out.println("1. Filtrar canciones por año");
+            System.out.println("2. Filtrar canciones por género");
+            System.out.println("3. Volver al menú principal");
+            System.out.print("Elige una opción: ");
+            option = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (option) {
+                case 1:
+                    filterByYear();
+                    break;
+                case 2:
+                    filterByGender();
+                    break;
+                case 3:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Introduce un número del 1 al 3.");
+                    break;
+            }
+        } while (option != 3);
+    }
+
+    //filtración por año
+    private static void filterByYear() {
+        System.out.print("Ingrese el año: ");
+        int anio = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer
+
+        System.out.println("Canciones del año " + anio + ":");
+
+        for (Song cancion : library.getSongs()) {
+            if (cancion.getDate().getYear() == anio) {
+                System.out.println("- " + cancion.getTitle());
+            }
+        }
+    }
+
+    //filtracion por genero
+    private static void filterByGender() {
+        System.out.print("Ingrese el género: ");
+        String genero = scanner.nextLine();
+
+        System.out.println("Canciones del género " + genero + ":");
+
+        for (Song cancion : library.getSongs()) {
+            if (cancion.getGender().equalsIgnoreCase(genero)) {
+                System.out.println("- " + cancion.getTitle());
+            }
         }
     }
 }
