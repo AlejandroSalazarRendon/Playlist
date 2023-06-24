@@ -288,4 +288,56 @@ public class Main {
             }
         }
     }
+    private static void sortMenu() {
+        int option;
+
+        do {
+            System.out.println("");
+            System.out.println("");
+            System.out.println("----- Submenú Ordenar -----");
+            System.out.println("1. Ordenar por duración");
+            System.out.println("2. Ordenar por fecha");
+            System.out.println("3. Volver al menú principal");
+            System.out.print("Elige una opción: ");
+            option = scanner.nextInt();
+            scanner.nextLine(); // Limpiar el buffer
+
+            switch (option) {
+                case 1:
+                    orderByDuration();
+                    break;
+                case 2:
+                    orderByDate();
+                    break;
+                case 3:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Introduce un número del 1 al 3.");
+                    break;
+            }
+        } while (option != 3);
+    }
+
+    private static void orderByDuration() {
+        List<Song> Songs = library.getSongs();
+        Songs.sort(Comparator.comparingInt(Song::getDuration));
+
+        System.out.println("Canciones ordenadas por duración:");
+
+        for (Song song : Songs) {
+            System.out.println("- " + song.getTitle() + " - Duración: " + song.getDuration() + " segundos");
+        }
+    }
+
+    private static void orderByDate() {
+        List<Song> canciones = library.getSongs();
+        canciones.sort(Comparator.comparing(Song::getDate));
+
+        System.out.println("Canciones ordenadas por fecha:");
+
+        for (Song song : canciones) {
+            System.out.println("- " + song.getTitle() + " - Fecha: " + song.getDate());
+        }
+    }
 }
